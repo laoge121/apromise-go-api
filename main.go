@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	//_ "apromise-go-api/routers"
 
 	"apromise-go-api/base"
@@ -33,7 +33,7 @@ func main() {
 	//base.FuncT(slis)
 
 	//匿名函数
-	a := 10
+	/*a := 10
 	b := base.Change(a)
 	fmt.Println(b(3))
 	fmt.Println(b(2))
@@ -42,4 +42,28 @@ func main() {
 	base.DeferT()
 
 	base.StructT()
+	*/
+
+	/*A := base.A{}
+	B := base.B{}
+	A.Println()
+	A.Println1()
+	B.Println()
+	B.Println2()
+
+	(*base.A).Println(&A)
+	var t1 base.IntT
+	t1.Increment()
+	fmt.Println(t1)
+	*/
+	var ph base.Usb
+	phone := base.PhoneConnector{"dianhua"}
+	ph = phone
+	base.DisConnect(ph)
+
+	tv := base.TvConnector("tv")
+	tv.Connect()
+	var con base.Connecter
+	con = tv
+	base.DisConnectInf(con)
 }
