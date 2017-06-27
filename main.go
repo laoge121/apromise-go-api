@@ -40,4 +40,6 @@ func main() {
 	fmt.Println(a)
 
 	base.DeferT()
+
+	base.StructT()
 }
