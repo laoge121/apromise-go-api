@@ -20,10 +20,6 @@ func (u User) Hellow() {
 	fmt.Println("hellow word!")
 }
 
-func Manage(m Manage) {
-
-}
-
 func Info(o interface{}) {
 
 	t := reflect.TypeOf(o)

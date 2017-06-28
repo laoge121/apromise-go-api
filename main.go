@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	//"fmt"
 	//_ "apromise-go-api/routers"
 
@@ -52,11 +53,11 @@ func main() {
 	B.Println2()
 
 	(*base.A).Println(&A)
-	var t1 base.IntT
+	var t1 base.IntTr
 	t1.Increment()
 	fmt.Println(t1)
 	*/
-	var ph base.Usb
+	/*var ph base.Usb
 	phone := base.PhoneConnector{"dianhua"}
 	ph = phone
 	base.DisConnect(ph)
@@ -66,4 +67,13 @@ func main() {
 	var con base.Connecter
 	con = tv
 	base.DisConnectInf(con)
+	*/
+
+	base.ThreadT()
+	fmt.Println(">>>>>>>>>>>>.")
+	base.GoBockT()
+	base.GoThread()
+	base.GoSys()
+	base.SelectT()
+	base.SelectT1()
 }
