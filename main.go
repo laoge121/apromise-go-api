@@ -5,12 +5,12 @@ import (
 	//"fmt"
 	//_ "apromise-go-api/routers"
 
-	"apromise-go-api/base"
+	//"apromise-go-api/base"
 
-	//"github.com/astaxie/beego"
+	"github.com/astaxie/beego"
 )
 
-func main() {
+func baseTest() {
 	/*if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
@@ -67,7 +67,7 @@ func main() {
 	var con base.Connecter
 	con = tv
 	base.DisConnectInf(con)
-	*/
+
 
 	base.ThreadT()
 	fmt.Println(">>>>>>>>>>>>.")
@@ -76,4 +76,9 @@ func main() {
 	base.GoSys()
 	base.SelectT()
 	base.SelectT1()
+	*/
+}
+
+func main() {
+
 }
