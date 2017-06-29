@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	//"fmt"
-	//_ "apromise-go-api/routers"
+	_ "apromise-go-api/routers"
 
 	//"apromise-go-api/base"
 
@@ -80,5 +80,6 @@ func baseTest() {
 }
 
 func main() {
-
+	fmt.Println("system start")
+	beego.Run()
 }
