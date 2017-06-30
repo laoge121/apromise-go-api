@@ -7,6 +7,14 @@ import (
 
 func init() {
 
+	beego.GlobalControllerRouter["apromise-go-api/controllers:MarketController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:MarketController"],
+		beego.ControllerComments{
+			Method: "GetMarketList",
+			Router: `/getList`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["apromise-go-api/controllers:ObjectController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:ObjectController"],
 		beego.ControllerComments{
 			Method: "Post",
@@ -44,6 +52,14 @@ func init() {
 			Method: "Delete",
 			Router: `/:objectId`,
 			AllowHTTPMethods: []string{"delete"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["apromise-go-api/controllers:TopicController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:TopicController"],
+		beego.ControllerComments{
+			Method: "Get",
+			Router: `/:id`,
+			AllowHTTPMethods: []string{"get"},
 			MethodParams: param.Make(),
 			Params: nil})
 

@@ -7,9 +7,9 @@ import (
 
 	//"apromise-go-api/base"
 
-	"apromise-go-api/models"
+	//"apromise-go-api/models"
 
-	//"github.com/astaxie/beego"
+	"github.com/astaxie/beego"
 )
 
 func baseTest() {
@@ -83,9 +83,9 @@ func baseTest() {
 
 func main() {
 	//fmt.Println("system start")
-	//beego.Run()
+	beego.Run()
 	fmt.Println(">>>>>")
-	topic := models.Topic{}
-	topic.Id = 3580
-	topic.GetTopicById()
+	//topic := models.Topic{}
+	//topic.Id = 3580
+	//topic.GetTopicById()
 }

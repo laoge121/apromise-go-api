@@ -14,6 +14,10 @@ var (
 	TopicList map[string]*Topic
 )
 
+var (
+	queryByIdSql = "SELECT id,title,market_id as marketId,sub_title as subTitle FROM t_venus_topic WHERE id =?"
+)
+
 type Topic struct {
 	Id          int
 	MarketId    int
@@ -30,7 +34,7 @@ type Topic struct {
 
 func (t Topic) String() string {
 
-	return t.Title
+	return t.SubTitle
 }
 
 func (t *Topic) TableName() string {
@@ -41,31 +45,25 @@ func (t *Topic) TableEngine() string {
 	return "INNODB"
 }
 
-func init() {
-	TopicList = make(map[string]*Topic)
-	t := Topic{1, 2, "标题", "副标题", "标题图", "描述", "雨后", 1, 12, 23, 1}
-	TopicList[t.Title] = &t
-	orm.RegisterDriver("mysql", orm.DRMySQL)
-	orm.RegisterDataBase("default", "mysql", "root:pwd@tcp(ip:3306)/dataBase?charset=utf8", 30)
-}
-
-func (t Topic) GetTopicById() {
+func (t Topic) GetTopicById() (topic *Topic) {
 	o := orm.NewOrm()
 	o.Using("default")
-
-	r := o.Raw("SELECT title FROM table WHERE id =?", t.Id)
-	var topic Topic
-	errs := r.QueryRow(&topic)
+	fmt.Print("<<<", t.Id)
+	r := o.Raw(queryByIdSql, t.Id)
+	var tmpTopic Topic
+	errs := r.QueryRow(&tmpTopic)
+	topic = &tmpTopic
 	if errs != nil {
 		fmt.Println("查询数据异常")
 	}
-	fmt.Println(topic)
-
-	r = o.Raw("update table set title=? where id =?", t.Title, t.Id)
+	fmt.Println(">>", topic)
+	t.Title = "雨后测试"
+	r = o.Raw("update t_venus_topic set title=? where id =?", t.Title, t.Id)
 	results, err := r.Exec()
 	if err != nil {
 		fmt.Println(">>>不ok", err)
 	} else {
 		fmt.Println(results.RowsAffected())
 	}
+	return topic
 }
