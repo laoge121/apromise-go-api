@@ -32,7 +32,8 @@ func init() {
 		),
 		beego.NSNamespace("/market",
 			beego.NSInclude(
-				&controllers.MarketController{}),
+				&controllers.MarketController{},
+			),
 		),
 	)
 	beego.AddNamespace(ns)

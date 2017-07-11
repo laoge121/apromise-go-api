@@ -1,9 +1,16 @@
 package models
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/astaxie/beego/orm"
+)
+
+var (
+	market_getMarketList = "SELECT id,title,date,status from t_venus_market"
+
+	market_getMarket = "SELECT * FROM t_venus_market where status=?"
 )
 
 type Market struct {
@@ -28,7 +35,7 @@ func (m *Market) TableEngine() string {
 func (m *Market) GetMarketList() *[]Market {
 	o := orm.NewOrm()
 
-	r := o.Raw("SELECT id,title,date,status from t_venus_market ")
+	r := o.Raw(market_getMarketList)
 
 	var mk []Market
 
@@ -38,4 +45,26 @@ func (m *Market) GetMarketList() *[]Market {
 	}
 
 	return &mk
+}
+
+func (m *Market) GetMarketMap() (*[]orm.Params, error) {
+	o := orm.NewOrm()
+	var maps []orm.Params
+	num, err := o.Raw(market_getMarket, 1).Values(&maps)
+	if err != nil {
+		err = errors.New("查询数据异常！")
+	}
+	fmt.Print("返回数据行数：", num, "\n")
+	return &maps, err
+}
+
+func (m *Market) GetMarketLists() (*[]orm.ParamsList, error) {
+	o := orm.NewOrm()
+	var lists []orm.ParamsList
+	num, err := o.Raw(market_getMarketList).ValuesList(&lists)
+	if err != nil && num > 0 {
+		err = errors.New("查询数据异常")
+	}
+	fmt.Println("返回数据集:", num)
+	return &lists, err
 }

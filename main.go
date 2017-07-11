@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	//"fmt"
 	_ "apromise-go-api/routers"
 
@@ -10,6 +10,7 @@ import (
 	//"apromise-go-api/models"
 
 	"github.com/astaxie/beego"
+	"apromise-go-api/rpc/service"
 )
 
 func baseTest() {
@@ -83,8 +84,8 @@ func baseTest() {
 
 func main() {
 	//fmt.Println("system start")
+	go service.Start()
 	beego.Run()
-	fmt.Println(">>>>>")
 	//topic := models.Topic{}
 	//topic.Id = 3580
 	//topic.GetTopicById()

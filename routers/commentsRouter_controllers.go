@@ -15,6 +15,22 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["apromise-go-api/controllers:MarketController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:MarketController"],
+		beego.ControllerComments{
+			Method: "GetMarketMap",
+			Router: `/getMarketMap`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["apromise-go-api/controllers:MarketController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:MarketController"],
+		beego.ControllerComments{
+			Method: "GetMarketLists",
+			Router: `/getLists`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["apromise-go-api/controllers:ObjectController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:ObjectController"],
 		beego.ControllerComments{
 			Method: "Post",
