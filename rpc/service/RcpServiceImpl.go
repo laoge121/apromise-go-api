@@ -7,8 +7,8 @@ import (
 	"apromise-go-api/rpc"
 )
 
-var(
-	NetWorkSport="127.0.0.1:9090"
+var (
+	NetWorkSport = "127.0.0.1:9090"
 )
 
 type rpcService struct {
@@ -21,17 +21,16 @@ func (this *rpcService) FunCall(callTime int64, funCode string, paramMap map[str
 	return
 }
 
-func Start()  {
+func Start() {
 	transportFactorys := thrift.NewTFramedTransportFactory(thrift.NewTTransportFactory())
-	protocolFactory:=thrift.NewTBinaryProtocolFactoryDefault()
-	serverTransport,err:=thrift.NewTServerSocket(NetWorkSport);
-	if err!=nil{
-		fmt.Println("Error!",err)
+	protocolFactory := thrift.NewTJSONProtocolFactory()
+	serverTransport, err := thrift.NewTServerSocket(NetWorkSport);
+	if err != nil {
+		fmt.Println("Error!", err)
 	}
-	handler:=&rpcService{}
-	process:=rpc.NewRpcServiceProcessor(handler)
-
-	server:=thrift.NewTSimpleServer4(process,serverTransport,transportFactorys,protocolFactory)
-	fmt.Println("thrift server in",NetWorkSport)
+	handler := &rpcService{}
+	process := rpc.NewRpcServiceProcessor(handler)
+	server := thrift.NewTSimpleServer4(process, serverTransport, transportFactorys, protocolFactory)
+	fmt.Println("thrift server in", NetWorkSport)
 	server.Serve()
 }

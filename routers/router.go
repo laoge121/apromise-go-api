@@ -35,6 +35,10 @@ func init() {
 				&controllers.MarketController{},
 			),
 		),
+		beego.NSNamespace("/topRankGoodsControl", beego.NSInclude(
+			&controllers.TopRankGoodsController{},
+		),
+		),
 	)
 	beego.AddNamespace(ns)
 }

@@ -71,6 +71,14 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["apromise-go-api/controllers:TopRankGoodsController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:TopRankGoodsController"],
+		beego.ControllerComments{
+			Method: "GetTopRankGoodsCList",
+			Router: `/getTopRankGoodsList`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["apromise-go-api/controllers:TopicController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:TopicController"],
 		beego.ControllerComments{
 			Method: "Get",

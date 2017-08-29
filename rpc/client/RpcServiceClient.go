@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	HOST = "127.0.0.1"
+	HOST = "localhost"
 	PORT = "9090"
 )
 
@@ -19,7 +19,7 @@ func ClientStart() {
 
 	transportFactory := thrift.NewTFramedTransportFactory(thrift.NewTTransportFactory())
 
-	protocolFactory := thrift.NewTBinaryProtocolFactoryDefault();
+	protocolFactory := thrift.NewTJSONProtocolFactory()
 
 	transport, err := thrift.NewTSocket(net.JoinHostPort(HOST, PORT))
 
@@ -43,7 +43,7 @@ func ClientStart() {
 		paramMap["b"] = "test " + strconv.Itoa(i + 1)
 		r1, err := client.FunCall(time.Now().Unix(), "go client", paramMap)
 		if (err != nil) {
-			fmt.Println("调用错误")
+			fmt.Println("调用错误",err)
 		}
 		fmt.Println(r1)
 	}
