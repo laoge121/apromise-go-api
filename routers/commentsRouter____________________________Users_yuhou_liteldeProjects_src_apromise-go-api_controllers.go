@@ -73,9 +73,33 @@ func init() {
 
 	beego.GlobalControllerRouter["apromise-go-api/controllers:TopRankGoodsController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:TopRankGoodsController"],
 		beego.ControllerComments{
-			Method: "GetTopRankGoodsCList",
-			Router: `/getTopRankGoodsList`,
+			Method: "Get",
+			Router: `/get`,
 			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["apromise-go-api/controllers:TopRankGoodsController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:TopRankGoodsController"],
+		beego.ControllerComments{
+			Method: "Post",
+			Router: `/post`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["apromise-go-api/controllers:TopRankGoodsController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:TopRankGoodsController"],
+		beego.ControllerComments{
+			Method: "ParseFormData",
+			Router: `/parse`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["apromise-go-api/controllers:TopRankGoodsController"] = append(beego.GlobalControllerRouter["apromise-go-api/controllers:TopRankGoodsController"],
+		beego.ControllerComments{
+			Method: "PostJsons",
+			Router: `/json`,
+			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
 			Params: nil})
 

@@ -84,6 +84,7 @@ func baseTest() {
 }
 
 func main() {
+
 	//fmt.Println("system start")
 	go service.Start()
 	beego.Run()
