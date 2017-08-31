@@ -10,7 +10,7 @@ var (
 )
 
 type VenusTopRankGoodsControl struct {
-	Id        int   `form:"-"`  // '自增主键',
+	Id        int   `form:"id"`  // '自增主键',
 	Date      int    `form:"date"`// '日期',
 	Type      string `form:"type"`// '榜单类型:每日上新mrsx、一周新品yzxp、一周热销yzrx、热销单品rxdp、今日人气jrrq、今日热卖jrrm',
 	Stime     int    // '榜单开始时间',
