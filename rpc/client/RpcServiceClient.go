@@ -5,9 +5,9 @@ import (
 	"net"
 	"fmt"
 	"os"
-	"gen-go/demo/rpc"
 	"strconv"
 	"time"
+	"apromise-go-api/rpc"
 )
 
 var (

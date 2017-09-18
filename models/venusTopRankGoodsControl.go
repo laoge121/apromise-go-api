@@ -61,19 +61,20 @@ func (t VenusTopRankGoodsControl) GetGoods() {
 	}
 }
 
-func (t VenusTopRankGoodsControl) UpdateGoods() int {
+func (t VenusTopRankGoodsControl) UpdateGoods() int64 {
 	o := orm.NewOrm()
 	err1 := o.Begin()
 	if err1 != nil {
 		err1 = errors.New("事务开启异常！")
 	}
 	res, err := o.Raw(updateTopRank, t.Update_id, t.Id).Exec()
-	if err == nil && res.RowsAffected() > 0 {
+	r, _ := res.RowsAffected()
+	if err == nil && r > 0 {
 		fmt.Println("更新数据影响行数")
 
 		//提交事务
 		o.Commit()
-		return res.RowsAffected()
+		return r
 	}
 
 	//回滚事务
