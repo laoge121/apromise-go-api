@@ -87,9 +87,9 @@ func (this *TopRankGoodsController)PostJsons() {
 
 }
 
-
-
-
-
-
+//@router /nice [get]
+func (this *TopRankGoodsController) GetNice() {
+	this.Data["json"] = models.SayNice()
+	this.ServeJSON()
+}
 

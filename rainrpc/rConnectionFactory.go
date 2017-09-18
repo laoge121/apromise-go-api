@@ -26,6 +26,12 @@ type ConnectionFactory struct {
 //初始化 链接 信息
 var ConnectionFactorys = make(map[string]*ConnectionFactory);
 
+// 数据调用
+func ( connection *Connection) Execute(server string, method string, param string) (string, error) {
+	return connection.Client.Invoke(1, "code", server, method, param)
+
+}
+
 //初始化服务链接工厂
 func NewConnectionFactory() error {
 
