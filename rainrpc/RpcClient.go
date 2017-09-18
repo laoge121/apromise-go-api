@@ -17,7 +17,7 @@ func ClientInvoke() {
 
 	protocolFactory := thrift.NewTBinaryProtocolFactoryDefault()
 
-	transport, err := thrift.NewTSocket(net.JoinHostPort("172.18.53.24", "2181"))
+	transport, err := thrift.NewTSocket(net.JoinHostPort("localhost", "2181"))
 
 	if err != nil {
 		fmt.Println(os.Stderr, "error resolving address", err)
@@ -40,5 +40,5 @@ func ClientInvoke() {
 	fmt.Println(s)
 }
 
-func test(){
+func test() {
 }
