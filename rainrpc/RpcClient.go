@@ -25,18 +25,17 @@ func ClientInvoke() {
 
 	useTransport, _ := transportFactory.GetTransport(transport)
 
-	client := NewInvokeServiceClientFactory(useTransport, protocolFactory)
-
+	//client := NewInvokeServiceClientFactory(useTransport, protocolFactory)
+	client := NewRouteServiceClientFactory(useTransport, protocolFactory);
 	if errs := transport.Open(); errs != nil {
 		fmt.Println(os.Stderr, "error open socket to", "172.18.53.24", 2181, errs)
 		os.Exit(1)
 	}
 	defer transport.Close()
 
-	s, _ := client.Invoke(1, "2", "niceService", "sayNice", "")
-	fmt.Println(s)
+	request := RainRequest{}
 
-	s, _ = client.Invoke(1, "2", "niceService", "sayNice", "")
+	s, _ := client.Execute(&request)
 	fmt.Println(s)
 }
 

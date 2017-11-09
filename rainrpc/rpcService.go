@@ -3,12 +3,9 @@ package rainrpc
 import (
 	"github.com/astaxie/beego"
 	"log"
-	"sort"
 	"context"
 	"strings"
-	"fmt"
 	"strconv"
-	"encoding/json"
 )
 
 //rpc 服务方法
@@ -17,7 +14,6 @@ type RpcMethod struct {
 	Parametes   string
 	MethodParam map[string]string
 }
-
 
 //rpc 服务列表
 type RpcServer struct {
@@ -40,23 +36,63 @@ type RpcApp struct {
 
 //订阅的 服务列表
 var Rpc_App_List = make([]*RpcApp, 1)
+
+func LoadService() {
+	servives := beego.AppConfig.Strings("rpc.services")
+	length := 0
+	for _, service := range servives {
+		rpcApp := RpcApp{}
+		rpcApp.AppName = service
+
+		path := "/rain-server-raining" + "/" + service;
+		resp, errs := Cli.Get(context.Background(), path, nil)
+		if ( nil != errs) {
+			log.Fatal("load server list error, no available server!")
+		}
+		nodeData := resp.Node.Value
+		//如果数据不是正确ip：port 格式那么就继续吓一条数据处理
+		if (!strings.Contains(nodeData, ":")) {
+			log.Fatal("hosts info error!", nodeData)
+			continue
+		}
+		hosts := strings.Split(nodeData, ";")
+		var Rpc_server_list = make([]*RpcSerives, len(hosts))
+		size := 0
+		for _, str := range hosts {
+			host := strings.Split(str, ":")
+			rpcs := RpcSerives{}
+			ip := host[0]
+			rpcs.Ip = ip
+			port, _ := strconv.Atoi(host[1])
+			rpcs.Port = port;
+			Rpc_server_list[size] = &rpcs
+			size++
+		}
+		rpcApp.Services = Rpc_server_list
+		Rpc_App_List[length] = &rpcApp
+	}
+}
+
 //加载服务
+/*
 func LoadService() {
 
 	//设置基础的服务列表
-	servers := beego.AppConfig.Strings("etcd.serverName")
+	servers := beego.AppConfig.Strings("rpc.services")
 	appNum := 0;
-	for _, serverName := range servers {
+	for _, serverPath := range servers {
 
+		serverNames := strings.Split(serverPath, "\\.");
+		if (len(serverNames) < 3) {
+			continue
+		}
 		rpcApp := RpcApp{}
-		rpcApp.AppName = serverName
+		rpcApp.AppName = serverNames[2]
 
-		basePath := "/rain-server-" + serverName;
-
+		basePath := "/rain-server-raining" + "/" + serverPath;
 		resp, errs := Cli.Get(context.Background(), basePath, nil)
 		if errs != nil {
 			log.Fatal("load server list error, no available server!")
-
 		}
 		sort.Sort(resp.Node.Nodes)
 
@@ -67,7 +103,7 @@ func LoadService() {
 		snum := 0
 		for _, n := range resp.Node.Nodes {
 			serverHost := n.Key
-			serverHost = strings.Replace(serverHost, basePath + "/", "", -1)
+			serverHost = strings.Replace(serverHost, basePath+"/", "", -1)
 			hosts := strings.Split(serverHost, ":")
 			rpcs := RpcSerives{}
 			ip := hosts[0]
@@ -84,7 +120,7 @@ func LoadService() {
 			size := 0
 			for _, nn := range res.Node.Nodes {
 				sName := nn.Key
-				sName = strings.Replace(sName, n.Key + "/", "", -1)
+				sName = strings.Replace(sName, n.Key+"/", "", -1)
 				rpcsr := RpcServer{}
 				rpcsr.ClassName = sName
 
@@ -97,7 +133,7 @@ func LoadService() {
 				num := 0
 				for _, nnn := range re2.Node.Nodes {
 					mName := nnn.Key
-					mName = strings.Replace(mName, nn.Key + "/", "", -1)
+					mName = strings.Replace(mName, nn.Key+"/", "", -1)
 					names := strings.Split(mName, "@")
 					rM := RpcMethod{}
 					rM.MethodName = names[0]
@@ -136,3 +172,4 @@ func LoadService() {
 		}
 	}
 }
+*/

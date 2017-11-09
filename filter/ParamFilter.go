@@ -1,8 +1,8 @@
 package filter
 
 import (
-	"github.com/astaxie/beego/context"
 	"fmt"
+	"github.com/astaxie/beego/context"
 )
 
 var FilterUser = func(ctx *context.Context) {
@@ -10,12 +10,11 @@ var FilterUser = func(ctx *context.Context) {
 
 	fmt.Println(">>>>>>FilterUser>>>>>>>")
 
-	if ok{
+	if ok {
 		fmt.Println("<<>><>成功!<><")
 	}
-/*
-	if !ok && ctx.Request.RequestURI != "/login" {
-		ctx.Redirect(302, "login")
-	}*/
+	/*
+		if !ok && ctx.Request.RequestURI != "/login" {
+			ctx.Redirect(302, "login")
+		}*/
 }
-

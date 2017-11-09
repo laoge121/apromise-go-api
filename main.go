@@ -10,8 +10,7 @@ import (
 	//"apromise-go-api/models"
 
 	"github.com/astaxie/beego"
-	//"apromise-go-api/rpc/service"
-	"apromise-go-api/rpc/service"
+
 	"apromise-go-api/filter"
 )
 
@@ -25,7 +24,7 @@ func init(){
 	//设置删除控制台
 	//logs.BeeLogger.DelLogger("console")
 	//设置日志级别
-	beego.SetLevel(beego.LevelInformational)
+	//beego.SetLevel(beego.LevelInformational)
 	/*
 	beego.Emergency("this is emergency")
 	beego.Alert("this is alert")
@@ -48,9 +47,9 @@ func init(){
 	LevelDebug
 	级别依次降低，默认全部打印，但是一般我们在部署环境，可以通过设置级别设置日志级别：
 
-	beego.SetLevel(beego.LevelInformational)
-
 	*/
+	beego.SetLevel(beego.LevelDebug)
+
 
 
 	//设置输出信息
@@ -129,7 +128,7 @@ func baseTest() {
 func main() {
 
 	//fmt.Println("system start")
-	go service.Start()
+	//go service.Start()
 	beego.Run()
 	//topic := models.Topic{}
 	//topic.Id = 3580

@@ -10,10 +10,10 @@ import (
 )
 
 type Connection struct {
-	Name   string               //链接名称
-	Group  string               //客户端组
-	Weight int                  //权重
-	Client *InvokeServiceClient //服务客户端
+	Name   string              //链接名称
+	Group  string              //客户端组
+	Weight int                 //权重
+	Client *RouteServiceClient //服务客户端
 }
 
 type ConnectionFactory struct {
@@ -27,8 +27,8 @@ type ConnectionFactory struct {
 var ConnectionFactorys = make(map[string]*ConnectionFactory);
 
 // 数据调用
-func ( connection *Connection) Execute(server string, method string, param string) (string, error) {
-	return connection.Client.Invoke(1, "code", server, method, param)
+func (connection *Connection) Execute(request *RainRequest) (*RainResponse, error) {
+	return connection.Client.Execute(request)
 
 }
 
@@ -77,7 +77,7 @@ func GetConnection(appName string) (*Connection, error) {
 		connection.Name = rpcSerives.Ip
 		connection.Client = client
 		connection.Group = rpcSerives.App
-		connection.Weight = 1//权重值目前都默认设置成1
+		connection.Weight = 1 //权重值目前都默认设置成1
 
 		conn := make(map[string]*Connection)
 		conn[rpcSerives.Ip] = &connection
@@ -96,7 +96,7 @@ func GetConnection(appName string) (*Connection, error) {
 }
 
 //创建链接
-func createConnection(hosts string, port string) *InvokeServiceClient {
+func createConnection(hosts string, port string) *RouteServiceClient {
 
 	transportFactory := thrift.NewTFramedTransportFactory(thrift.NewTTransportFactory())
 
@@ -110,7 +110,7 @@ func createConnection(hosts string, port string) *InvokeServiceClient {
 
 	useTransport, _ := transportFactory.GetTransport(transport)
 
-	client := NewInvokeServiceClientFactory(useTransport, protocolFactory)
+	client := NewRouteServiceClientFactory(useTransport, protocolFactory)
 
 	if errs := transport.Open(); errs != nil {
 		fmt.Println(os.Stderr, "error open socket to", "172.18.53.24", 2181, errs)
@@ -118,12 +118,4 @@ func createConnection(hosts string, port string) *InvokeServiceClient {
 	}
 
 	return client;
-	/*defer transport.Close()
-
-	s, _ := client.Invoke(1, "2", "niceService", "sayNice", "")
-	fmt.Println(s)
-
-	s, _ = client.Invoke(1, "2", "niceService", "sayNice", "")
-	fmt.Println(s)*/
-
 }

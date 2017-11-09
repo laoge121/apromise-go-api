@@ -22,12 +22,13 @@ func SayNice() string {
 	if err != nil {
 		fmt.Println(err)
 	}
-	ret, err := conn.Execute(server, "sayNice", "")
+	requst:=rainrpc.RainRequest{};
+	ret, err := conn.Execute(&requst)
 	if err != nil {
 		fmt.Println(err)
 		return ""
 	}
-	return ret
+	return ret.ResponseHead.Message
 }
 
 func SayNice1(p Person) string {
@@ -35,15 +36,16 @@ func SayNice1(p Person) string {
 	if err != nil {
 		fmt.Println(err)
 	}
-	param, e := json.Marshal(p)
+	_, e := json.Marshal(p)
 	if e != nil {
 		return ""
 	}
-	ret, err := conn.Execute(server, "sayNice", string(param))
+	requst:=rainrpc.RainRequest{};
+	ret, err := conn.Execute(&requst)
 
 	if err != nil {
 		fmt.Println(err)
 		return ""
 	}
-	return ret
+	return ret.ResponseHead.Message
 }

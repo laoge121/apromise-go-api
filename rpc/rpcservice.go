@@ -7,6 +7,7 @@ import (
 	"bytes"
 	"fmt"
 	"git.apache.org/thrift.git/lib/go/thrift"
+	"context"
 )
 
 // (needed to ensure safety because of naive import list construction.)
@@ -160,7 +161,7 @@ func (p *RpcServiceProcessor) Process(iprot, oprot thrift.TProtocol) (success bo
 		return false, err
 	}
 	if processor, ok := p.GetProcessorFunction(name); ok {
-		return processor.Process(seqId, iprot, oprot)
+		return processor.Process(nil,seqId, iprot, oprot)
 	}
 	iprot.Skip(thrift.STRUCT)
 	iprot.ReadMessageEnd()
@@ -177,7 +178,7 @@ type rpcServiceProcessorFunCall struct {
 	handler RpcService
 }
 
-func (p *rpcServiceProcessorFunCall) Process(seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+func (p *rpcServiceProcessorFunCall) Process(ctx context.Context,seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	args := RpcServiceFunCallArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()

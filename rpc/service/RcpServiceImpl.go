@@ -3,8 +3,6 @@ package service
 import (
 	"fmt"
 	"time"
-	"git.apache.org/thrift.git/lib/go/thrift"
-	"apromise-go-api/rpc"
 )
 
 var (
@@ -22,7 +20,7 @@ func (this *rpcService) FunCall(callTime int64, funCode string, paramMap map[str
 }
 
 func Start() {
-	transportFactorys := thrift.NewTFramedTransportFactory(thrift.NewTTransportFactory())
+	/*transportFactorys := thrift.NewTFramedTransportFactory(thrift.NewTTransportFactory())
 	protocolFactory := thrift.NewTJSONProtocolFactory()
 	serverTransport, err := thrift.NewTServerSocket(NetWorkSport);
 	if err != nil {
@@ -32,5 +30,5 @@ func Start() {
 	process := rpc.NewRpcServiceProcessor(handler)
 	server := thrift.NewTSimpleServer4(process, serverTransport, transportFactorys, protocolFactory)
 	fmt.Println("thrift server in", NetWorkSport)
-	server.Serve()
+	server.Serve()*/
 }
